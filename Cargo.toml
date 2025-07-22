@@ -1,0 +1,56 @@
+[package]
+name = "sravz"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "sravz"
+path = "src/main.rs"
+
+[dependencies]
+tokio-nsq = "0.14.0"
+futures = "0.3"
+tokio = { version = "1", features = ["full"] }
+gethostname = "0.4.3"
+mongodb = "2.1"
+bson = { version = "2", features = [
+    "chrono-0_4",
+] } # Needed for using chrono datetime in doc
+chrono = "0.4" # Used for setting DateTimes
+serde = "1" # Used in the Map Data into Structs section
+crypto = "0.5.1"
+digest = "0.10.7"
+sha2 = "0.10.8"
+serde_derive = "1.0.189"
+log = "0.4.5"
+serde_json = "1.0"
+env_logger = "0.11.0"
+rusoto_core = "0.48.0"
+rusoto_s3 = "0.48.0"
+flate2 = "1.0.28"
+polars = { version = "0.35.4", features = [
+    "strings",
+    "lazy",
+    "temporal",
+    "describe",
+    "json",
+    "parquet",
+    "dtype-datetime",
+    "dtype-date",
+] }
+lazy_static = "1"
+ordered-float = "4.2.0"
+rand = "0.8.5"
+uuid = "1.6.1"
+cpython = "0.7.1"
+pyo3 = { version = "0.20.2", features = ["auto-initialize"] }
+pyo3-polars = { version = "*", features = ["derive"] }
+tempfile = "3.2"
+assert_matches = "1.0"
+toml = "0.5.10"
+rusoto_mock = "0.47.0"
+reqwest = { version = "0.11", features = ["json"] }
+
+[dev-dependencies]
+mockito = "0.30" # Ensure this is the latest version

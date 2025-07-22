@@ -1,0 +1,29 @@
+{
+    "id": 1.0,
+    "p_i": {
+        "args" : [
+            "etf_us_tqqq",
+            "etf_us_qld",
+            "etf_us_qqq"
+        ],
+        "kwargs": {
+            "device": "mobile",
+            "upload_to_aws": true
+        }
+    },
+    "t_o": "training-node",
+    "cid": "La4u05B7BWf7_4xyAAAJ",
+    "cache_message": true,
+    "stopic": "pca",
+    "ts": 1707539363.2191138,
+    "fun_n": "leverage_funds",
+    "d_o": {
+        "bucket_name": "",
+        "key_name": "",
+        "data": null,
+        "signed_url": ""
+    },
+    "e": "",
+    "key": "",
+    "exception_message": ""
+}

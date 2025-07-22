@@ -1,0 +1,592 @@
+{
+    "code": null,
+    "datetime": null,
+    "data": null,
+    "dataObject": {
+      "General": {
+        "Code": "FBGRX",
+        "Type": "FUND",
+        "Name": "Fidelity Blue Chip Growth Fund",
+        "Exchange": "NMFQS",
+        "CurrencyCode": "USD",
+        "CurrencyName": "US Dollar",
+        "CurrencySymbol": "$",
+        "CountryName": "USA",
+        "CountryISO": "US",
+        "OpenFigi": "BBG000BC3L28",
+        "ISIN": "US3163893031",
+        "CUSIP": "316389303",
+        "Fund_Summary": "The fund invests primarily in common stocks. It normally invests at least 80% of assets in blue chip companies (companies that, in Fidelity Management & Research Company LLC (FMR)'s view, are well-known, well-established and well-capitalized), which generally have large or medium market capitalizations. It invests in securities of domestic and foreign issuers. The fund uses fundamental analysis of factors such as each issuer's financial condition and industry position, as well as market and economic conditions, to select investments. The fund is non-diversified.",
+        "Fund_Family": "Fidelity Investments",
+        "Fund_Category": "Large Growth",
+        "Fund_Style": "Large Growth",
+        "Fiscal_Year_End": "July",
+        "MarketCapitalization": 0
+      },
+      "MutualFund_Data": {
+        "Fund_Category": "Large Growth",
+        "Fund_Style": "Large Growth",
+        "Nav": "199.63",
+        "Prev_Close_Price": "197.08",
+        "Update_Date": "2024-03-31",
+        "Portfolio_Net_Assets": "47100740000",
+        "Share_Class_Net_Assets": "42882030000",
+        "Morning_Star_Rating": null,
+        "Morning_Star_Risk_Rating": null,
+        "Morning_Star_Category": null,
+        "Inception_Date": "1987-12-31",
+        "Currency": "USD",
+        "Domicile": "United States",
+        "Yield": "0.0000",
+        "Yield_YTD": "15.2133",
+        "Yield_1Year_YTD": "50.7725",
+        "Yield_3Year_YTD": "7.6853",
+        "Yield_5Year_YTD": "19.0049",
+        "Expense_Ratio": "0.4800",
+        "Expense_Ratio_Date": "2022-09-29",
+        "Value_Growth": {
+          "0": {
+            "Name": "Price/Prospective Earnings",
+            "Category_Average": 29.35779,
+            "Benchmark": 28.3908,
+            "Stock_Portfolio": 30.17802
+          },
+          "1": {
+            "Name": "Price/Book",
+            "Category_Average": 7.80388,
+            "Benchmark": 7.33144,
+            "Stock_Portfolio": 7.3699
+          },
+          "2": {
+            "Name": "Price/Sales",
+            "Category_Average": 4.38257,
+            "Benchmark": 4.46685,
+            "Stock_Portfolio": 4.20981
+          },
+          "3": {
+            "Name": "Price/Cash Flow",
+            "Category_Average": 20.02232,
+            "Benchmark": 18.83251,
+            "Stock_Portfolio": 17.8906
+          },
+          "4": {
+            "Name": "Dividend Yield %",
+            "Category_Average": 0.60344,
+            "Benchmark": 0.6429,
+            "Stock_Portfolio": 0.45212
+          },
+          "5": {
+            "Name": "Long-Term Earnings %",
+            "Category_Average": 15.99058,
+            "Benchmark": 15.94551,
+            "Stock_Portfolio": 17.49349
+          },
+          "6": {
+            "Name": "Historical Earnings %",
+            "Category_Average": 16.27443,
+            "Benchmark": 17.25935,
+            "Stock_Portfolio": 16.53927
+          },
+          "7": {
+            "Name": "Book-Value Growth %",
+            "Category_Average": 12.80273,
+            "Benchmark": 13.2226,
+            "Stock_Portfolio": 10.47385
+          },
+          "8": {
+            "Name": "Sales Growth %",
+            "Category_Average": 11.12386,
+            "Benchmark": 12.51867,
+            "Stock_Portfolio": 10.91127
+          },
+          "9": {
+            "Name": "Cash-Flow Growth %",
+            "Category_Average": 17.65778,
+            "Benchmark": 17.30317,
+            "Stock_Portfolio": 19.55833
+          }
+        },
+        "Market_Capitalization": {
+          "0": {
+            "Size": "AverageMarketCap",
+            "Category_Average": 492483.98426,
+            "Benchmark": 427470.02994,
+            "Portfolio_%": 430278.35936
+          },
+          "1": {
+            "Size": "Giant",
+            "Category_Average": 65.16515,
+            "Benchmark": 59.89524,
+            "Portfolio_%": 60.30864
+          },
+          "2": {
+            "Size": "Large",
+            "Category_Average": 14.65398,
+            "Benchmark": 20.37711,
+            "Portfolio_%": 20.3059
+          },
+          "3": {
+            "Size": "Medium",
+            "Category_Average": 15.50469,
+            "Benchmark": 19.26372,
+            "Portfolio_%": 10.4939
+          },
+          "4": {
+            "Size": "Small",
+            "Category_Average": 2.21707,
+            "Benchmark": 0.46398,
+            "Portfolio_%": 4.91944
+          },
+          "5": {
+            "Size": "Micro",
+            "Category_Average": 0.11827,
+            "Benchmark": 0,
+            "Portfolio_%": 0.23253
+          }
+        },
+        "market_capitalization": null,
+        "world_regions": null,
+        "sector_weights": null,
+        "asset_allocation": null
+      }
+    },
+    "General": {
+      "Code": "FBGRX",
+      "Type": "FUND",
+      "Name": "Fidelity Blue Chip Growth Fund",
+      "Exchange": "NMFQS",
+      "CurrencyCode": "USD",
+      "CurrencyName": "US Dollar",
+      "CurrencySymbol": "$",
+      "CountryName": "USA",
+      "CountryISO": "US",
+      "OpenFigi": "BBG000BC3L28",
+      "ISIN": "US3163893031",
+      "CUSIP": "316389303",
+      "Fund_Summary": "The fund invests primarily in common stocks. It normally invests at least 80% of assets in blue chip companies (companies that, in Fidelity Management & Research Company LLC (FMR)'s view, are well-known, well-established and well-capitalized), which generally have large or medium market capitalizations. It invests in securities of domestic and foreign issuers. The fund uses fundamental analysis of factors such as each issuer's financial condition and industry position, as well as market and economic conditions, to select investments. The fund is non-diversified.",
+      "Fund_Family": "Fidelity Investments",
+      "Fund_Category": "Large Growth",
+      "Fund_Style": "Large Growth",
+      "Fiscal_Year_End": "July",
+      "MarketCapitalization": 0
+    },
+    "General2": {
+      "Fund_Category": "Large Growth",
+      "Fund_Style": "Large Growth",
+      "Nav": "199.63",
+      "Prev_Close_Price": "197.08",
+      "Update_Date": "2024-03-31",
+      "Portfolio_Net_Assets": "47100740000",
+      "Share_Class_Net_Assets": "42882030000",
+      "Morning_Star_Rating": null,
+      "Morning_Star_Risk_Rating": null,
+      "Morning_Star_Category": null,
+      "Inception_Date": "1987-12-31",
+      "Currency": "USD",
+      "Domicile": "United States",
+      "Yield": "0.0000",
+      "Yield_YTD": "15.2133",
+      "Yield_1Year_YTD": "50.7725",
+      "Yield_3Year_YTD": "7.6853",
+      "Yield_5Year_YTD": "19.0049",
+      "Expense_Ratio": "0.4800",
+      "Expense_Ratio_Date": "2022-09-29",
+      "Value_Growth": {
+        "0": {
+          "Name": "Price/Prospective Earnings",
+          "Category_Average": 29.35779,
+          "Benchmark": 28.3908,
+          "Stock_Portfolio": 30.17802
+        },
+        "1": {
+          "Name": "Price/Book",
+          "Category_Average": 7.80388,
+          "Benchmark": 7.33144,
+          "Stock_Portfolio": 7.3699
+        },
+        "2": {
+          "Name": "Price/Sales",
+          "Category_Average": 4.38257,
+          "Benchmark": 4.46685,
+          "Stock_Portfolio": 4.20981
+        },
+        "3": {
+          "Name": "Price/Cash Flow",
+          "Category_Average": 20.02232,
+          "Benchmark": 18.83251,
+          "Stock_Portfolio": 17.8906
+        },
+        "4": {
+          "Name": "Dividend Yield %",
+          "Category_Average": 0.60344,
+          "Benchmark": 0.6429,
+          "Stock_Portfolio": 0.45212
+        },
+        "5": {
+          "Name": "Long-Term Earnings %",
+          "Category_Average": 15.99058,
+          "Benchmark": 15.94551,
+          "Stock_Portfolio": 17.49349
+        },
+        "6": {
+          "Name": "Historical Earnings %",
+          "Category_Average": 16.27443,
+          "Benchmark": 17.25935,
+          "Stock_Portfolio": 16.53927
+        },
+        "7": {
+          "Name": "Book-Value Growth %",
+          "Category_Average": 12.80273,
+          "Benchmark": 13.2226,
+          "Stock_Portfolio": 10.47385
+        },
+        "8": {
+          "Name": "Sales Growth %",
+          "Category_Average": 11.12386,
+          "Benchmark": 12.51867,
+          "Stock_Portfolio": 10.91127
+        },
+        "9": {
+          "Name": "Cash-Flow Growth %",
+          "Category_Average": 17.65778,
+          "Benchmark": 17.30317,
+          "Stock_Portfolio": 19.55833
+        }
+      },
+      "Market_Capitalization": {
+        "0": {
+          "Size": "AverageMarketCap",
+          "Category_Average": 492483.98426,
+          "Benchmark": 427470.02994,
+          "Portfolio_%": 430278.35936
+        },
+        "1": {
+          "Size": "Giant",
+          "Category_Average": 65.16515,
+          "Benchmark": 59.89524,
+          "Portfolio_%": 60.30864
+        },
+        "2": {
+          "Size": "Large",
+          "Category_Average": 14.65398,
+          "Benchmark": 20.37711,
+          "Portfolio_%": 20.3059
+        },
+        "3": {
+          "Size": "Medium",
+          "Category_Average": 15.50469,
+          "Benchmark": 19.26372,
+          "Portfolio_%": 10.4939
+        },
+        "4": {
+          "Size": "Small",
+          "Category_Average": 2.21707,
+          "Benchmark": 0.46398,
+          "Portfolio_%": 4.91944
+        },
+        "5": {
+          "Size": "Micro",
+          "Category_Average": 0.11827,
+          "Benchmark": 0,
+          "Portfolio_%": 0.23253
+        }
+      },
+      "market_capitalization": null,
+      "world_regions": null,
+      "sector_weights": null,
+      "asset_allocation": null
+    },
+    "Asset_Allocation": [
+      {
+        "Net_%": "0.26609",
+        "Long_%": "0.45095",
+        "Type": "Cash",
+        "Short_%": "0.18486",
+        "Category_Average": "1.11773",
+        "Benchmark": "0.00000",
+        "Name": "0"
+      },
+      {
+        "Net_%": "0.10486000000000001",
+        "Long_%": "0.10486000000000001",
+        "Type": "Not Classified",
+        "Short_%": "0.0",
+        "Category_Average": "0.00449",
+        "Benchmark": "0.0",
+        "Name": "1"
+      },
+      {
+        "Net_%": "5.45105",
+        "Long_%": "5.46749",
+        "Type": "Non US Stock",
+        "Short_%": "0.01644",
+        "Category_Average": "4.15855",
+        "Benchmark": "0.55379",
+        "Name": "2"
+      },
+      {
+        "Net_%": "2.48572",
+        "Long_%": "2.48572",
+        "Type": "Other",
+        "Short_%": "0.00000",
+        "Category_Average": "1.13283",
+        "Benchmark": "0.00000",
+        "Name": "3"
+      },
+      {
+        "Net_%": "91.67507",
+        "Long_%": "91.67507",
+        "Type": "US Stock",
+        "Short_%": "0.00000",
+        "Category_Average": "93.92338",
+        "Benchmark": "99.44626",
+        "Name": "4"
+      },
+      {
+        "Net_%": "0.01721",
+        "Long_%": "0.01721",
+        "Type": "Bond",
+        "Short_%": "0.00000",
+        "Category_Average": "0.00604",
+        "Benchmark": "0.00000",
+        "Name": "5"
+      }
+    ],
+    "WorldRegionHoldings": [
+      {
+        "0": {
+          "Name": "North America",
+          "Category_Average": 96.1,
+          "Stocks_%": 94.668,
+          "Benchmark": 99.446
+        },
+        "1": {
+          "Name": "Latin America",
+          "Category_Average": 0.522,
+          "Stocks_%": 0.021,
+          "Benchmark": 0.338
+        },
+        "Name": "Americas"
+      },
+      {
+        "0": {
+          "Name": "Japan",
+          "Category_Average": 0.057,
+          "Stocks_%": 0,
+          "Benchmark": 0
+        },
+        "1": {
+          "Name": "Australasia",
+          "Category_Average": 0,
+          "Stocks_%": 0,
+          "Benchmark": 0
+        },
+        "2": {
+          "Name": "Asia Developed",
+          "Category_Average": 0.368,
+          "Stocks_%": 0.882,
+          "Benchmark": 0
+        },
+        "3": {
+          "Name": "Asia Emerging",
+          "Category_Average": 0.199,
+          "Stocks_%": 1.136,
+          "Benchmark": 0
+        },
+        "Name": "Greater Asia"
+      },
+      {
+        "0": {
+          "Name": "United Kingdom",
+          "Category_Average": 0.44031,
+          "Stocks_%": 0.16996,
+          "Benchmark": 0.05698
+        },
+        "1": {
+          "Name": "Europe Developed",
+          "Category_Average": 2.187,
+          "Stocks_%": 3.076,
+          "Benchmark": 0.159
+        },
+        "2": {
+          "Name": "Europe Emerging",
+          "Category_Average": 0,
+          "Stocks_%": 0,
+          "Benchmark": 0
+        },
+        "3": {
+          "Name": "Africa/Middle East",
+          "Category_Average": 0.127,
+          "Stocks_%": 0.048,
+          "Benchmark": 0
+        },
+        "Name": "Greater Europe"
+      }
+    ],
+    "Sector_Weights": [
+      {
+        "0": {
+          "Name": "Basic Materials",
+          "Category_Average": 1.183,
+          "Amount_%": 0.13261,
+          "Benchmark": 1.12286
+        },
+        "1": {
+          "Name": "Consumer Cyclical",
+          "Category_Average": 14.46736,
+          "Amount_%": 20.91116,
+          "Benchmark": 14.46487
+        },
+        "2": {
+          "Name": "Financial Services",
+          "Category_Average": 8.40693,
+          "Amount_%": 2.78903,
+          "Benchmark": 6.66426
+        },
+        "3": {
+          "Name": "Real Estate",
+          "Category_Average": 1.09228,
+          "Amount_%": 0.17867,
+          "Benchmark": 2.21499
+        },
+        "Name": "Cyclical"
+      },
+      {
+        "0": {
+          "Name": "Consumer Defensive",
+          "Category_Average": 2.8603,
+          "Amount_%": 2.34369,
+          "Benchmark": 2.252
+        },
+        "1": {
+          "Name": "Healthcare",
+          "Category_Average": 12.44385,
+          "Amount_%": 8.52972,
+          "Benchmark": 8.92207
+        },
+        "2": {
+          "Name": "Utilities",
+          "Category_Average": 0.28653,
+          "Amount_%": 0.02774,
+          "Benchmark": 0.57429
+        },
+        "Name": "Defensive"
+      },
+      {
+        "0": {
+          "Name": "Communication Services",
+          "Category_Average": 11.57716,
+          "Amount_%": 16.28795,
+          "Benchmark": 9.74886
+        },
+        "1": {
+          "Name": "Energy",
+          "Category_Average": 0.99367,
+          "Amount_%": 1.58401,
+          "Benchmark": 0.9744
+        },
+        "2": {
+          "Name": "Industrials",
+          "Category_Average": 6.13871,
+          "Amount_%": 1.86499,
+          "Benchmark": 6.75205
+        },
+        "3": {
+          "Name": "Technology",
+          "Category_Average": 40.55023,
+          "Amount_%": 45.35041,
+          "Benchmark": 46.30937
+        },
+        "Name": "Sensitive"
+      },
+      {
+        "0": {
+          "Name": "Government",
+          "Category_Average": 9.03241,
+          "Amount_%": 0.02774,
+          "Stocks_%": 0,
+          "Benchmark": null
+        },
+        "1": {
+          "Name": "Municipal",
+          "Category_Average": 0,
+          "Amount_%": 0.02774,
+          "Stocks_%": 0,
+          "Benchmark": null
+        },
+        "2": {
+          "Name": "Corporate",
+          "Category_Average": 0.44936,
+          "Amount_%": 0.02774,
+          "Stocks_%": 19.30462,
+          "Benchmark": null
+        },
+        "3": {
+          "Name": "Securitized",
+          "Category_Average": 0,
+          "Amount_%": 0.02774,
+          "Stocks_%": 0,
+          "Benchmark": null
+        },
+        "4": {
+          "Name": "Cash and Equivalents",
+          "Category_Average": 90.49696,
+          "Amount_%": 0.02774,
+          "Stocks_%": 80.69538,
+          "Benchmark": null
+        },
+        "5": {
+          "Name": "Derivative",
+          "Category_Average": 0.02127,
+          "Amount_%": 0.02774,
+          "Stocks_%": 0,
+          "Benchmark": null
+        },
+        "Name": "Bond Sector"
+      }
+    ],
+    "Holdings": [],
+    "Top_Holdings": [
+      {
+        "Name": "NVIDIA CORP",
+        "Weight": "11.42%"
+      },
+      {
+        "Name": "MICROSOFT CORP",
+        "Weight": "9.75%"
+      },
+      {
+        "Name": "AMAZON.COM INC",
+        "Weight": "8.38%"
+      },
+      {
+        "Name": "APPLE INC",
+        "Weight": "8.30%"
+      },
+      {
+        "Name": "ALPHABET INC CL A",
+        "Weight": "6.07%"
+      },
+      {
+        "Name": "META PLATFORMS INC CL A",
+        "Weight": "4.95%"
+      },
+      {
+        "Name": "MARVELL TECHNOLOGY INC",
+        "Weight": "3.48%"
+      },
+      {
+        "Name": "ELI LILLY and CO",
+        "Weight": "2.36%"
+      },
+      {
+        "Name": "SNAP INC - A",
+        "Weight": "2.30%"
+      },
+      {
+        "Name": "NETFLIX INC",
+        "Weight": "2.26%"
+      }
+    ],
+    "Top_Countries": []
+  }

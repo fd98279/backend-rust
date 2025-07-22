@@ -1,0 +1,2 @@
+[config]
+backend_rust_topic= "staging_backend-rust"
