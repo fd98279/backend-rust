@@ -1,0 +1,35 @@
+# .dockerignore for Rust project
+
+# Exclude target directory created by cargo build
+/target/
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+node_modules/
+
+# Exclude any files generated during build or runtime
+Cargo.lock
+Cargo.toml.orig
+Cargo.toml.swp
+*.rs.bk
+*.rlib
+*.rmeta
+*.rmeta.orig
+.dockerignore
+.gitignore
+.devcontainer
+
+# Exclude any temporary files or directories
+**/*.swp
+**/*.swo
+**/*.swn
+**/*.un~
+**/*.bak
+**/*.tmp
+**/*.orig
+
+# Exclude any development-related files
+.vscode/
+.idea/
+.rustfmt.toml

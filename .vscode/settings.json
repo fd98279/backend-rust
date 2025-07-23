@@ -1,0 +1,41 @@
+{
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true
+    },
+    "rust-analyzer.runnableEnv": {},
+    "cSpell.enabled": false,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true, // If you're using pytest, set this to true
+    "python.testing.unittestArgs": [
+        "-v", // Verbose mode
+        "-s", // Look for tests in current directory
+        "${workspaceFolder}/src/sravz_rust_py/tests/" // Directory containing test files
+    ],
+    "python.linting.enabled": true,
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--max-line-length",
+        "120"
+    ],
+    "python.sortImports.args": [
+        "--profile",
+        "black"
+    ],
+    "python.sortImports.path": "isort",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always"
+    },
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "120"
+    ],
+    "editor.formatOnSave": true,
+    "python.testing.pytestArgs": [
+        "-v",
+        "${workspaceFolder}/src/sravz_rust_py/tests/" // Directory containing test files
+    ],
+    "files.watcherExclude": {
+        "**/target": true
+    }
+}

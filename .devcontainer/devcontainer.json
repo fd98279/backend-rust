@@ -1,0 +1,26 @@
+//devcontainer.json
+{
+  "name": "backend-rust",
+  "dockerComposeFile": "../../docker-compose-localhost.yaml",
+  "service": "backend-rust",
+  "workspaceFolder": "/workspace/backend-rust/",
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "mongodb.mongodb-vscode",
+        "swellaby.vscode-rust-test-adapter",
+        "swellaby.rust-pack",
+        "ms-vscode.cpptools",
+        "vadimcn.vscode-lldb",
+        "ms-python.python",
+        "ms-python.pylint",
+        "ms-python.autopep8"
+      ]
+    }
+  },
+  "postCreateCommand": "/bin/bash /workspace/backend-py/.devcontainer/startup.sh"
+}
