@@ -11,11 +11,6 @@ from sravz_llm_agent_tools.QueryData import QueryData
 from . import tools, llm_settings
 from langgraph.checkpoint.redis import RedisSaver
 
-# Optional, add tracing in LangSmith
-os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "Sravz LLM"
-
 
 def query_llm(funds, keys, query, query_header=None, query_footer=None) -> str:
     """
@@ -185,4 +180,3 @@ def stream_llm(funds, keys, query, query_header=None, query_footer=None) -> str:
     # Compile and run
     app = workflow.compile(checkpointer=memory)
     return query_data, app
-

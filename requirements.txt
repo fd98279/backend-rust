@@ -31,3 +31,5 @@ bson
 msgpack
 langgraph-supervisor
 langchain-openai
+python-dotenv
+langgraph-checkpoint-redis

@@ -1,4 +1,5 @@
-
+# Load environment variables from .env file
+from dotenv import load_dotenv
 import os
 import sys
 
@@ -11,3 +12,6 @@ src_dir = os.path.dirname(f"{current_file_dir}/../")
 sys.path.append(parent_dir)
 sys.path.append(src_dir)
 print(sys.path)
+
+env_path = os.path.join(os.path.dirname(__file__), '../../../.env')
+load_dotenv(env_path)

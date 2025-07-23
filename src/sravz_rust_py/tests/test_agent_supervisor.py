@@ -1,8 +1,5 @@
 import additional_imports  # pylint: disable=C0411
 import unittest
-# Get the parent directory of the current file
-import os
-import sys
 from sravz_rust_py.sravz_llm_agent_tools import llm
 import sravz_rust_py.agent_supervisor as agent_supervisor  # pylint: disable=C0411
 import logging
@@ -10,9 +7,6 @@ from langchain.callbacks import get_openai_callback
 
 
 class TestAgentSupervisor(unittest.TestCase):
-    def setUp(self):
-        self.query_fn = agent_supervisor.query
-
     def test_ytd_direction(self):
         funds = ["fund_us_fbgrx.json",
                  "fund_us_fsptx.json", "fund_us_fgrcx.json"]
@@ -22,7 +16,7 @@ class TestAgentSupervisor(unittest.TestCase):
     Order the funds by yield direction.
     Output data with columns Code, ${",".join(keys)}, Yield_Direction.
     """
-        output = self.query_fn(funds, keys, query_str)
+        output = agent_supervisor.query(funds, keys, query_str)
         print(output)
         self.assertIsNotNone(output)
 
@@ -34,7 +28,7 @@ class TestAgentSupervisor(unittest.TestCase):
         Order the funds by decreasing yield by expense ratio.
         Output data with columns Code, Yield, Expense_Ratio and Yield/Expense_Ration as YER-Ratio.
     """
-        output = self.query_fn(funds, keys, query)
+        output = agent_supervisor.query(funds, keys, query)
         print(output)
         self.assertIsNotNone(output)
 
@@ -45,7 +39,7 @@ class TestAgentSupervisor(unittest.TestCase):
         query = """
         For each asset get the 5 Top_Holdings based on Weight and capture data with code, asset and Weight columns.
     """
-        output = self.query_fn(funds, keys, query)
+        output = agent_supervisor.query(funds, keys, query)
         print(output)
         self.assertIsNotNone(output)
 
@@ -57,7 +51,7 @@ class TestAgentSupervisor(unittest.TestCase):
         Based on the Fund_Summary order the funds by most to least aggressive funds.
         Get data with columns Code and Aggressiveness.
         """
-        output = self.query_fn(funds, keys, query)
+        output = agent_supervisor.query(funds, keys, query)
         print(output)
         self.assertIsNotNone(output)
 
@@ -69,7 +63,7 @@ class TestAgentSupervisor(unittest.TestCase):
         query_footer = """
         Save the summarized market news bullet points as a well formatted html to local file system and get full path of the file on the local file system.
         Upload the file on the local file system to Contabo and return the presigned URL."""
-        output = self.query_fn(funds, keys, query,
+        output = agent_supervisor.query(funds, keys, query,
                                query_header=query_header,
                                query_footer=query_footer)
         print(output)

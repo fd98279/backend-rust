@@ -5,8 +5,8 @@
     },
     "rust-analyzer.runnableEnv": {},
     "cSpell.enabled": false,
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true, // If you're using pytest, set this to true
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": false, // If you're using pytest, set this to true
     "python.testing.unittestArgs": [
         "-v", // Verbose mode
         "-s", // Look for tests in current directory

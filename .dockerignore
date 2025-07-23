@@ -33,3 +33,4 @@ Cargo.toml.swp
 .vscode/
 .idea/
 .rustfmt.toml
+.env
