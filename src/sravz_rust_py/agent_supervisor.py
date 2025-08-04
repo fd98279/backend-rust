@@ -33,6 +33,7 @@ def query(funds, keys, query_str, query_header=None, query_footer=None) -> str:
         Results are logged using the logger object.
     """
     query_response = ""
+    
 
     with get_openai_callback() as cost:
         query_response = llm.query_llm(

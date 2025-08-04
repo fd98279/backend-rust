@@ -1,3 +1,2 @@
-import os
-
-LLM_MODEL = os.environ["LLM_MODEL"]
+# import os
+LLM_MODEL = "gpt-4o"

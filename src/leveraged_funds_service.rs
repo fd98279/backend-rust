@@ -99,7 +99,7 @@ impl<'a> LeveragedFunds<'a> {
                 "".to_string(),
                 "".to_string(),
                 "".to_string(),
-                message.p_i.kwargs.json_keys.clone(),
+                message.p_i.kwargs.json_keys.join(","),
                 message.p_i.kwargs.llm_query.clone(),
             )) {
                 Ok(_) => {
@@ -165,7 +165,7 @@ mod tests {
                     kwargs: Kwargs {
                         device: String::new(),
                         upload_to_aws: true,
-                        json_keys: String::new(),
+                        json_keys: Vec::new(),
                         llm_query: String::new(),
                     },
                 },

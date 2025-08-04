@@ -72,6 +72,10 @@ def get_all_documents_from_chroma_db(query: QueryData) -> list:
     splitter = RecursiveJsonSplitter(max_chunk_size=5000)
 
     for file in query.asset_list:
+        # Add .json extension if not present
+        if not file.endswith('.json'):
+            file = f"{file}.json"
+
         # Get the asset file from S3
         loader = JSONLoaderExtended(json_data=json.dumps(aws_helper.get_json_from_s3(settings.CONTABO_DATA_BUCKET,
                                                                                      f'{settings.MUTUAL_FUNDS_FUNDAMENTAL_DATA_PREFIX}{file}')),

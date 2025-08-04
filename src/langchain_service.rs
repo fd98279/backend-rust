@@ -26,7 +26,7 @@ impl<'a> LangChain<'a> {
             message.p_i.args.clone().join(","),
             "".to_string(),
             "".to_string(),
-            message.p_i.kwargs.json_keys.clone(),
+            message.p_i.kwargs.json_keys.join(","),
             message.p_i.kwargs.llm_query.clone(),
         )) {
             Ok(_) => {
@@ -67,7 +67,7 @@ mod tests {
             }
         };
         let mut lang_chain = LangChain::new(&config, &s3_module);
-        let keys = vec!["Yield_1Year_YTD", "Yield_3Year_YTD", "Yield_5Year_YTD"];
+        let keys = vec!["Yield_1Year_YTD".to_string(), "Yield_3Year_YTD".to_string(), "Yield_5Year_YTD".to_string()];
         let llm_query = format!(
             "Check if yield has been deceasing or increasing over time and store in value Yield_Direction.\n\
             Order the funds by yield direction.\n\
@@ -86,7 +86,7 @@ mod tests {
                     kwargs: Kwargs {
                         device: String::new(),
                         upload_to_aws: true,
-                        json_keys: keys.join(","),
+                        json_keys: keys,
                         llm_query, // <-- set here
                     },
                 },

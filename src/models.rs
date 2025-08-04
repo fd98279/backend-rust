@@ -80,7 +80,7 @@ pub struct Kwargs {
     #[serde(rename = "upload_to_aws")]
     pub upload_to_aws: bool,
     #[serde(rename = "json_keys")]
-    pub json_keys: String,
+    pub json_keys: Vec<String>,
     #[serde(rename = "llm_query")]
     pub llm_query: String,
 }
