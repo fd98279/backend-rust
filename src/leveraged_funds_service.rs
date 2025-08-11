@@ -93,13 +93,14 @@ impl<'a> LeveragedFunds<'a> {
             };
             // println!("{:?}", joined);
 
+            let json_keys = message.p_i.kwargs.json_keys.clone();
             match run_py_module(PyMessage::new(
                 message.id.to_string(),
                 message.key.to_string(),
                 "".to_string(),
                 "".to_string(),
                 "".to_string(),
-                message.p_i.kwargs.json_keys.join(","),
+                Some(json_keys.unwrap_or_default().join(",")),
                 message.p_i.kwargs.llm_query.clone(),
             )) {
                 Ok(_) => {
@@ -165,8 +166,8 @@ mod tests {
                     kwargs: Kwargs {
                         device: String::new(),
                         upload_to_aws: true,
-                        json_keys: Vec::new(),
-                        llm_query: String::new(),
+                        json_keys: None,
+                        llm_query: Some(String::new()),
                     },
                 },
                 t_o: String::new(),

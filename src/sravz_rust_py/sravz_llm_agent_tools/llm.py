@@ -95,7 +95,7 @@ def query_llm(funds, keys, query, query_header=None, query_footer=None) -> str:
         ]
     })
 
-    return str(llm_call_result['structured_response'])
+    return llm_call_result['structured_response'].PresignedURL
 
 
 def stream_llm(funds, keys, query, query_header=None, query_footer=None) -> str:
@@ -146,9 +146,8 @@ def stream_llm(funds, keys, query, query_header=None, query_footer=None) -> str:
                                            json_input_data_dict=json_input_data_dict)]
 
     # Set up Redis connection
-    REDIS_URI = "redis://:100DaysAroundTheWorldR@redis:6379"
     memory = None
-    with RedisSaver.from_conn_string(REDIS_URI) as cp:
+    with RedisSaver.from_conn_string(llm_settings.REDIS_URI) as cp:
         cp.setup()
         memory = cp
 

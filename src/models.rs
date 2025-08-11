@@ -79,10 +79,10 @@ pub struct Kwargs {
     pub device: String,
     #[serde(rename = "upload_to_aws")]
     pub upload_to_aws: bool,
-    #[serde(rename = "json_keys")]
-    pub json_keys: Vec<String>,
-    #[serde(rename = "llm_query")]
-    pub llm_query: String,
+    #[serde(rename = "json_keys", skip_serializing_if = "Option::is_none")]
+    pub json_keys: Option<Vec<String>>,
+    #[serde(rename = "llm_query", skip_serializing_if = "Option::is_none")]
+    pub llm_query: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Deserialize)]

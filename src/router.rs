@@ -85,8 +85,8 @@ mod tests {
                 kwargs: Kwargs {
                     device: String::new(),
                     upload_to_aws: true,
-                    json_keys: Vec::new(),
-                    llm_query: String::new(),
+                    json_keys: Some(vec![]),
+                    llm_query: None,
                 },
             },
             t_o: String::new(),
@@ -143,8 +143,8 @@ mod tests {
                 kwargs: Kwargs {
                     device: String::new(),
                     upload_to_aws: true,
-                    json_keys: Vec::new(),
-                    llm_query: String::new(),
+                    json_keys: Some(Vec::new()),
+                    llm_query: None,
                 },
             },
             t_o: String::new(),
@@ -197,8 +197,8 @@ mod tests {
                 kwargs: Kwargs {
                     device: String::new(),
                     upload_to_aws: true,
-                    json_keys: Vec::new(),
-                    llm_query: String::new(),
+                    json_keys: Some(Vec::new()),
+                    llm_query: None,
                 },
             },
             t_o: String::new(),
@@ -255,8 +255,8 @@ mod tests {
                 kwargs: Kwargs {
                     device: String::new(),
                     upload_to_aws: true,
-                    json_keys: Vec::new(),
-                    llm_query: String::new(),
+                    json_keys: Some(Vec::new()),
+                    llm_query: None,
                 },
             },
             t_o: String::new(),

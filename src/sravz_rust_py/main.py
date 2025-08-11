@@ -68,4 +68,4 @@ def run(py_message: PyMessage) -> PyMessage:
     except Exception as e:  # pylint: disable=broad-except
         logger.exception("Error occurred: %s", e)
 
-    return PyMessage
+    return py_message

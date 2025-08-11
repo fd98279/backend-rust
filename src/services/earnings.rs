@@ -202,8 +202,8 @@ impl Earnings {
                             sravz_id.to_string(),
                             code.to_string(),
                             url.to_string(),
-                            message.p_i.kwargs.json_keys.join(","),
-                            message.p_i.kwargs.llm_query.clone(),
+                            message.p_i.kwargs.json_keys.as_ref().map(|keys| keys.join(",")),
+                            Some(message.p_i.kwargs.llm_query.clone().unwrap_or_default()),
                         )) {
                             Ok(_) => {
                                 self.s3_module
@@ -378,8 +378,8 @@ mod tests {
                     kwargs: Kwargs {
                         device: String::new(),
                         upload_to_aws: true,
-                        json_keys: Vec::new(),
-                        llm_query: String::new(),
+                        json_keys: Some(Vec::new()),
+                        llm_query: Some(String::new()),
                     },
                 },
                 t_o: String::new(),

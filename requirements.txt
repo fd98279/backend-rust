@@ -29,7 +29,7 @@ boto3
 diskcache
 bson
 msgpack
-langgraph-supervisor
-langchain-openai
-python-dotenv
-langgraph-checkpoint-redis
+langgraph-supervisor==0.0.27
+langchain-openai==0.3.28
+python-dotenv==1.0.1
+langgraph-checkpoint-redis==0.0.8

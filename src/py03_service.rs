@@ -6,7 +6,7 @@ use pyo3::types::PyTuple;
 use std::io;
 
 #[pyclass]
-#[derive(Debug, Default)]
+#[derive(Debug, Default, FromPyObject)]
 pub(crate) struct PyMessage {
     #[pyo3(get, set)]
     message_id: String,
@@ -19,11 +19,11 @@ pub(crate) struct PyMessage {
     #[pyo3(get, set)]
     df_parquet_file_path: String,
     #[pyo3(get, set)]
-    output: String,
+    pub(crate) output: String,
     #[pyo3(get, set)]
-    json_keys: String,
+    json_keys: Option<String>,
     #[pyo3(get, set)]
-    llm_query: String,
+    llm_query: Option<String>,
 }
 
 #[pymethods]
@@ -35,8 +35,8 @@ impl PyMessage {
         sravz_ids: String,
         codes: String,
         df_parquet_file_path: String,
-        json_keys: String,
-        llm_query: String,
+        json_keys: Option<String>,
+        llm_query: Option<String>,
     ) -> Self {
         PyMessage {
             message_id,
@@ -45,13 +45,13 @@ impl PyMessage {
             codes,
             df_parquet_file_path,
             output: String::new(),
-            json_keys: json_keys,
-            llm_query: llm_query,
+            json_keys,
+            llm_query,
         }
     }
 }
 
-pub(crate) fn run_py_module(py_message: PyMessage) -> Result<(), Box<std::io::Error>> {
+pub(crate) fn run_py_module(py_message: PyMessage) -> Result<PyMessage, Box<std::io::Error>> {
     Python::with_gil(|py| {
         let activators = PyModule::from_code(
             py,
@@ -81,18 +81,9 @@ def run(py_message, slope=0.01):
 
                 match result {
                     Ok(py_result) => {
-                        // Try to extract the result as a String
-                        // let args = Py::new(
-                        //     py,
-                        //     PyMessage::new(message_key.to_string(), "abc123".to_string()),
-                        // );
-                        // let args = PyTuple::new(py, &[message_key]);
                         let args = PyTuple::new(
                             py,
                             &[
-                                // PyMessage::new(message_key.to_string(),
-                                // "fund_us_fbgrx.json,fund_us_fsptx.json,fund_us_fgrcx.json,fund_us_ekoax.json,fund_us_fzalx.json".to_string())
-                                //     .into_py(py),
                                 py_message.into_py(py),
                             ],
                         );
@@ -100,7 +91,18 @@ def run(py_message, slope=0.01):
                         let rust_result = py_result.call(args, Some(kwargs));
                         match rust_result {
                             Ok(result) => {
-                                info!("Python Result as String: {}", result);
+                                info!("Python Result: {:?}", result);
+                                // Extract PyMessage from Python result
+                                match result.extract::<PyMessage>() {
+                                    Ok(py_message) => return Ok(py_message),
+                                    Err(e) => {
+                                        error!("Failed to convert result to PyMessage: {}", e);
+                                        return Err(Box::new(io::Error::new(
+                                            io::ErrorKind::Other,
+                                            format!("Failed to convert result to PyMessage: {}", e)
+                                        )));
+                                    }
+                                }
                             }
                             Err(err) => {
                                 // Handle the Python error
@@ -147,6 +149,6 @@ def run(py_message, slope=0.01):
                 }
             }
         }
-        Ok(())
+        Ok(PyMessage::default())
     })
 }

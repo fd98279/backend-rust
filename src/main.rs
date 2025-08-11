@@ -131,10 +131,37 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 _message.exception_message = "".to_string();
                 _message.date = Utc::now();
 
+                // Sort kwargs for consistent hashing
+                let mut sorted_kwargs = serde_json::to_value(&_message.p_i.kwargs)
+                    .expect("Failed to serialize kwargs");
+                if let serde_json::Value::Object(ref mut map) = &mut sorted_kwargs {
+                    // Convert keys and string values to lowercase
+                    let lowercase_entries: Vec<(String, serde_json::Value)> = map
+                        .iter()
+                        .map(|(k, v)| {
+                            let lowercase_value = match v {
+                                serde_json::Value::String(s) => serde_json::Value::String(s.to_lowercase()),
+                                _ => v.clone(),
+                            };
+                            (k.to_lowercase(), lowercase_value)
+                        })
+                        .collect();
+                    
+                    // Clear and repopulate the map with lowercase entries
+                    map.clear();
+                    for (k, v) in lowercase_entries {
+                        map.insert(k, v);
+                    }
+                    
+                    // Create a sorted map
+                    let mut sorted: Vec<_> = map.iter().collect();
+                    sorted.sort_by(|a, b| a.0.cmp(b.0));
+                }
+
                 // Get hash of the message
                 let hashed_string = &sha256_hash(&format!(
-                    "{:?}{:?}{}",
-                    _message.p_i, _message.id, _message.fun_n
+                    "{:?}{:?}{}{:?}",
+                    _message.p_i, _message.id, _message.fun_n, sorted_kwargs
                 ));
 
                 info!(

@@ -136,7 +136,7 @@ def process(price_df: pd.DataFrame, message_key: str):
         '{0} {1} Rolling Relative Std'.format(sravzid, price_col_name))
     ax_rolling_std_plot.legend()
 
-    chart_index = chart_index + 1177
+    chart_index = chart_index + 1
     garch_conditional_vol = plt.subplot(gs[chart_index, :])
     for col in adjusted_closed_columns:
         returns_df = price_df[f'{col}_Daily_Return'].dropna()

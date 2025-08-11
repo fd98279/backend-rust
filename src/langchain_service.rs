@@ -16,21 +16,24 @@ impl<'a> LangChain<'a> {
         LangChain { s3_module, config }
     }
 
-    pub async fn query(&mut self, message: Message) -> Result<Message, Box<dyn Error>> {
-        // let sravz_ids = message.p_i.args.clone();
-        // Display the final joined DataFrame
-        // "fund_us_fbgrx.json,fund_us_fsptx.json,fund_us_fgrcx.json,fund_us_ekoax.json,fund_us_fzalx.json".to_string()))
+    pub async fn query(&mut self, mut message: Message) -> Result<Message, Box<dyn Error>> {
         match run_py_module(PyMessage::new(
             message.id.to_string(),
             message.key.to_string(),
             message.p_i.args.clone().join(","),
             "".to_string(),
             "".to_string(),
-            message.p_i.kwargs.json_keys.join(","),
-            message.p_i.kwargs.llm_query.clone(),
+            Some(message.p_i.kwargs.json_keys.clone().unwrap_or_default().join(",")),
+            Some(message.p_i.kwargs.llm_query.clone().unwrap_or_default()),
         )) {
-            Ok(_) => {
+            Ok(py_message) => {
                 log::info!("Python code executed successfully");
+                message.d_o = Some(crate::models::DO {
+                    bucket_name: self.config.contabo_bucket.clone(),
+                    key_name: format!("{}.png", message.key),
+                    signed_url:  py_message.output.into(),
+                    data: serde_json::Value::String(String::new()),
+                });
             }
             Err(err) => {
                 error!("Error executing Python code: {:?}", err);
@@ -86,8 +89,8 @@ mod tests {
                     kwargs: Kwargs {
                         device: String::new(),
                         upload_to_aws: true,
-                        json_keys: keys,
-                        llm_query, // <-- set here
+                        json_keys: Some(keys),
+                        llm_query: Some(llm_query), // <-- wrapped in Some()
                     },
                 },
                 t_o: String::new(),
