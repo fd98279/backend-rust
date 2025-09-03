@@ -179,16 +179,19 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
                 /* If the message exists and inserted less than 24 hours back - resend the same message else reprocess the message */
                 if messages.len() > 0 && messages[0].date + Duration::days(1) > Utc::now() {
-                    let message_from_router = &serde_json::to_string(&messages[0])
+                    let mut message_from_router = messages[0].clone();
+                    message_from_router.cid = _message.cid.clone();
+                    let message_from_router_json = &serde_json::to_string(&message_from_router)
                         .expect("Failed to convert NSQ message to JSON string");
+
                     info!(
                         "Sending the existing message in mongodb {}",
-                        message_from_router
+                        message_from_router_json
                     );
                     let producer_topic =
                         NSQTopic::new(_message.t_o).expect("Failed to create producer topic");
                     producer
-                        .publish(&producer_topic, message_from_router.as_bytes().to_vec())
+                        .publish(&producer_topic, message_from_router_json.as_bytes().to_vec())
                         .await
                         .expect("Failed to publish NSQ message");
                     message.finish().await;
