@@ -1,5 +1,5 @@
 # FROM rust:latest
-FROM public.ecr.aws/b8h3z2a1/sravz/backend-rust:v25
+FROM public.ecr.aws/b8h3z2a1/sravz/backend-rust:v30
 
 # # Enable for complete install from base
 # # Install lldb

@@ -4,7 +4,7 @@ fastparquet
 matplotlib 
 statsmodels 
 arch 
-pyfolio
+pyfolio @ git+https://github.com/sravzpublic/pyfolio@a0dfb7513639cb2f864948103df196ea8c385f67
 # LLM
 transformers 
 datasets 
