@@ -188,12 +188,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         "Sending the existing message in mongodb {}",
                         message_from_router_json
                     );
+                    
                     let producer_topic =
                         NSQTopic::new(_message.t_o).expect("Failed to create producer topic");
                     producer
                         .publish(&producer_topic, message_from_router_json.as_bytes().to_vec())
                         .await
                         .expect("Failed to publish NSQ message");
+                    producer
+                        .consume()
+                        .await
+                        .expect("Failed to consume NSQ message");                    
                     message.finish().await;
                     continue;
                 }
@@ -259,27 +264,18 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     .publish(&producer_topic, message_body_str.as_bytes().to_vec())
                     .await
                     .expect("Failed to publish NSQ message");
+                producer
+                    .consume()
+                    .await
+                    .expect("Failed to consume NSQ message");                
                 message.finish().await;
                 continue;
             }
             Err(err) => {
                 error!("Deserialization failed: {}", err);
+                message.finish().await;
             }
         }
-        // info!("Unable to process message {}", message_body_str);
-        // producer
-        //     .publish(&producer_topic, message_body_str.as_bytes().to_vec())
-        //     .await
-        //     .expect("Failed to publish NSQ message");
-
-        // }
-        // TODO: Wait until the message is acknowledged by NSQ
-        // assert_matches!(producer.consume().await.unwrap(), NSQEvent::Ok());
-        producer
-            .consume()
-            .await
-            .expect("Failed to consume NSQ message");
-        message.finish().await;
     }
 
     // Ok(())
