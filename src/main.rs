@@ -201,29 +201,56 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 // Clone the message so we have a reference in this routine
                 let mut original_message = _message.clone();
                 original_message.key = hashed_string.to_string();
-                // Pass the original message to the router
-                let router_result = router.process_message(_message).await;
-                match router_result {
-                    Ok(processed_message) => {
-                        // Reassign processed message to the original message
-                        original_message = processed_message;
-                    }
-                    Err(err) => {
-                        // Update original message
-                        original_message.e = "Error".to_string();
-                        original_message.exception_message = err.to_string();
-                        error!("Router message processing error: {}", err);
-                    }
-                }
 
-                // Save the message to mongodb cache
-                router
-                    .mongo
-                    .update_one(original_message.clone(), &client)
-                    .await;
-                let message_body_str = &serde_json::to_string(&original_message)
-                    .expect("Failed to convert message to JSON string");
-                info!("Sending the processed message on NSQ {}", message_body_str);
+                // Set message in progress before processing
+                // Check if message is already in progress
+                let status = router.mongo.is_message_in_progress(
+                    &original_message.key,
+                    &client,
+                    None
+                ).await;
+                if status.as_deref() != Some("IN_PROGRESS") {
+                    router.mongo.set_message_in_progress(
+                        &original_message.key,
+                        &serde_json::to_string(&original_message).unwrap_or_default(),
+                        "",
+                        "IN_PROGRESS",
+                        &client,
+                        None
+                    ).await;
+
+                    // Pass the original message to the router
+                    let router_result = router.process_message(_message).await;
+                    match router_result {
+                        Ok(processed_message) => {
+                            // Reassign processed message to the original message
+                            original_message = processed_message;
+                        }
+                        Err(err) => {
+                            // Update original message
+                            original_message.e = "Error".to_string();
+                            original_message.exception_message = err.to_string();
+                            error!("Router message processing error: {}", err);
+                        }
+                    }
+
+                    // Save the message to mongodb cache
+                    router
+                        .mongo
+                        .update_one(original_message.clone(), &client)
+                        .await;
+                    let message_body_str = &serde_json::to_string(&original_message)
+                        .expect("Failed to convert message to JSON string");
+                    info!("Sending the processed message on NSQ {}", message_body_str);                    
+
+                } else {
+                    original_message.e = format!(
+                        "Given message key: {} - ({}) is being processed. Please check after sometime",
+                        &original_message.key,
+                        serde_json::to_string(&original_message).unwrap_or_default()
+                    );
+                    info!("Message with key {} is already in progress. Skipping processing.", &original_message.key);
+                }
 
                 // Send the message to NSQ
                 let producer_topic = NSQTopic::new(original_message.t_o.clone())

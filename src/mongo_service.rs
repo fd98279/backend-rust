@@ -1,7 +1,11 @@
+use chrono::{DateTime, Utc, TimeZone, Datelike, Timelike};
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::options::ReplaceOptions;
 use mongodb::Client;
+use mongodb::bson::{Bson, Document};
+use mongodb::options::UpdateOptions;
+use log::{error, info};
 
 use crate::models::Message;
 
@@ -97,10 +101,92 @@ impl Mongo {
             .expect("Unable to collect items from Cursor");
         println!("messages: {:?}", messages);
     }
+
+    pub async fn set_message_in_progress(
+        &self,
+        cache_key: &str,
+        msg: &str,
+        exception_message: &str,
+        status: &str,
+        mdb: &Client,
+        collection_name: Option<&str>,
+    ) {
+        let collection_name = collection_name.unwrap_or("messages_wip");
+        let db = mdb.database("sravz");
+        let col = db.collection::<Document>(collection_name);
+
+        let now = Utc::now();
+        let message = doc! {
+            "key": cache_key,
+            "date": now,
+            "status": status,
+            "msg": msg,
+            "exception_message": exception_message,
+        };
+
+        let filter = doc! { "key": cache_key };
+        let update = doc! { "$set": message.clone() };
+        let options = UpdateOptions::builder().upsert(true).build();
+
+        match col.update_one(filter, update, options).await {
+            Ok(_) => info!("Message WIP uploaded to MDB {} - msg {:?}", collection_name, message),
+            Err(e) => error!("Failed to update message wip to mdb {}: {:?}", cache_key, e),
+        }
+        info!("Updated message: {} state to {}", cache_key, status);
+    }
+
+    pub async fn is_message_in_progress(
+        &self,
+        cache_key: &str,
+        mdb: &Client,
+        collection_name: Option<&str>,
+    ) -> Option<String> {
+        let collection_name = collection_name.unwrap_or("messages_wip");
+        let db = mdb.database("sravz");
+        let col = db.collection::<Document>(collection_name);
+
+        // Get start of today in UTC
+        let now = Utc::now();
+        let start_of_day = Utc
+            .ymd(now.year(), now.month(), now.day())
+            .and_hms(0, 0, 0);
+
+        let filter = doc! {
+            "key": { "$in": [cache_key] },
+            "date": { "$gte": start_of_day }
+        };
+
+        match col.find_one(filter, None).await {
+            Ok(Some(doc)) => {
+                if let Some(status) = doc.get_str("status").ok() {
+                    return Some(status.to_string());
+                }
+            }
+            Ok(None) => {}
+            Err(e) => error!("Failed to get message status from MDB {}: {:?}", cache_key, e),
+        }
+        None
+    }
 }
 
 #[cfg(test)]
 mod tests {
+    #[tokio::test]
+    async fn test_set_and_is_message_in_progress() {
+        let client: Client = Client::with_uri_str("mongodb://sravz:sravz@mongo:27017/sravz")
+            .await
+            .expect("Unable to connect to MongoDB");
+        let mongo = Mongo {};
+        let cache_key = "test_cache_key_123";
+        let msg = "test message";
+        let exception_message = "none";
+        let status = "IN_PROGRESS";
+        // Set message in progress
+        mongo.set_message_in_progress(cache_key, msg, exception_message, status, &client, None).await;
+        // Check message in progress
+        let found_status = mongo.is_message_in_progress(cache_key, &client, None).await;
+        assert_eq!(found_status, Some(status.to_string()));
+    }
     use crate::{models::Message, mongo_service::Mongo};
     use mongodb::Client;
 
