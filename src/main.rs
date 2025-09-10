@@ -201,75 +201,75 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         .expect("Failed to consume NSQ message");                    
                     message.finish().await;
                     continue;
-                }
+                } else {
+                    // Clone the message so we have a reference in this routine
+                    let mut original_message = _message.clone();
+                    original_message.key = hashed_string.to_string();
 
-                // Clone the message so we have a reference in this routine
-                let mut original_message = _message.clone();
-                original_message.key = hashed_string.to_string();
-
-                // Set message in progress before processing
-                // Check if message is already in progress
-                let status = router.mongo.is_message_in_progress(
-                    &original_message.key,
-                    &client,
-                    None
-                ).await;
-                if status.as_deref() != Some("IN_PROGRESS") {
-                    router.mongo.set_message_in_progress(
+                    // Set message in progress before processing
+                    // Check if message is already in progress
+                    let status = router.mongo.is_message_in_progress(
                         &original_message.key,
-                        &serde_json::to_string(&original_message).unwrap_or_default(),
-                        "",
-                        "IN_PROGRESS",
                         &client,
                         None
                     ).await;
+                    if status.as_deref() != Some("IN_PROGRESS") {
+                        router.mongo.set_message_in_progress(
+                            &original_message.key,
+                            &serde_json::to_string(&original_message).unwrap_or_default(),
+                            "",
+                            "IN_PROGRESS",
+                            &client,
+                            None
+                        ).await;
 
-                    // Pass the original message to the router
-                    let router_result = router.process_message(_message).await;
-                    match router_result {
-                        Ok(processed_message) => {
-                            // Reassign processed message to the original message
-                            original_message = processed_message;
+                        // Pass the original message to the router
+                        let router_result = router.process_message(_message).await;
+                        match router_result {
+                            Ok(processed_message) => {
+                                // Reassign processed message to the original message
+                                original_message = processed_message;
+                            }
+                            Err(err) => {
+                                // Update original message
+                                original_message.e = "Error".to_string();
+                                original_message.exception_message = err.to_string();
+                                error!("Router message processing error: {}", err);
+                            }
                         }
-                        Err(err) => {
-                            // Update original message
-                            original_message.e = "Error".to_string();
-                            original_message.exception_message = err.to_string();
-                            error!("Router message processing error: {}", err);
-                        }
-                    }
 
-                    // Save the message to mongodb cache
-                    router
-                        .mongo
-                        .update_one(original_message.clone(), &client)
-                        .await;
-                    let message_body_str = &serde_json::to_string(&original_message)
-                        .expect("Failed to convert message to JSON string");
-                    info!("Sending the processed message on NSQ {}", message_body_str);                    
+                        // Save the message to mongodb cache
+                        router
+                            .mongo
+                            .update_one(original_message.clone(), &client)
+                            .await;
+                        let message_body_str = &serde_json::to_string(&original_message)
+                            .expect("Failed to convert message to JSON string");
+                        info!("Sending the processed message on NSQ {}", message_body_str);                    
 
-                } else {
-                    original_message.e = format!(
-                        "Given message key: {} - ({}) is being processed. Please check after sometime",
-                        &original_message.key,
-                        serde_json::to_string(&original_message).unwrap_or_default()
-                    );
-                    info!("Message with key {} is already in progress. Skipping processing.", &original_message.key);
+                    } else {
+                        original_message.e = format!(
+                            "Given message key: {} - ({}) is being processed. Please check after sometime",
+                            &original_message.key,
+                            serde_json::to_string(&original_message).unwrap_or_default()
+                        );
+                        info!("Message with key {} is already in progress. Skipping processing.", &original_message.key);
+                    }       
+
+                    // Send the message to NSQ
+                    let producer_topic = NSQTopic::new(original_message.t_o.clone())
+                        .expect("Failed to create producer topic");
+                    producer
+                        .publish(&producer_topic, message_body_str.as_bytes().to_vec())
+                        .await
+                        .expect("Failed to publish NSQ message");
+                    producer
+                        .consume()
+                        .await
+                        .expect("Failed to consume NSQ message");                
+                    message.finish().await;
+                    continue;                                 
                 }
-
-                // Send the message to NSQ
-                let producer_topic = NSQTopic::new(original_message.t_o.clone())
-                    .expect("Failed to create producer topic");
-                producer
-                    .publish(&producer_topic, message_body_str.as_bytes().to_vec())
-                    .await
-                    .expect("Failed to publish NSQ message");
-                producer
-                    .consume()
-                    .await
-                    .expect("Failed to consume NSQ message");                
-                message.finish().await;
-                continue;
             }
             Err(err) => {
                 error!("Deserialization failed: {}", err);
