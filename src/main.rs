@@ -117,8 +117,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
             .expect("Failed to consume NSQ message");
         info!("Processing the message...");
 
+        let message_body = message.body.clone();
         let message_body_str =
-            std::str::from_utf8(&message.body).expect("Failed to get JSON string from NSQ Message");
+            std::str::from_utf8(&message_body).expect("Failed to get JSON string from NSQ Message");
         info!("Message received {}", message_body_str);
 
         let result: Result<Message, serde_json::Error> = serde_json::from_str(message_body_str);
@@ -203,7 +204,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     continue;
                 } else {
                     // Clone the message so we have a reference in this routine
-                    let mut original_message = _message.clone();
+                    let var_name = _message.clone();
+                    let mut original_message = var_name;
                     original_message.key = hashed_string.to_string();
 
                     // Set message in progress before processing
@@ -239,6 +241,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         }
 
                         // Save the message to mongodb cache
+                        message.finish().await;                           
                         router
                             .mongo
                             .update_one(original_message.clone(), &client)
@@ -266,8 +269,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     producer
                         .consume()
                         .await
-                        .expect("Failed to consume NSQ message");                
-                    message.finish().await;
+                        .expect("Failed to consume NSQ message");                                 
                     continue;                                 
                 }
             }
