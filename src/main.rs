@@ -117,7 +117,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             .expect("Failed to consume NSQ message");
         info!("Processing the message...");
 
-        let message_body = message.body.clone();
+        let message_body = message.body.clone();     
         let message_body_str =
             std::str::from_utf8(&message_body).expect("Failed to get JSON string from NSQ Message");
         info!("Message received {}", message_body_str);
@@ -189,18 +189,22 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         "Sending the existing message in mongodb {}",
                         message_from_router_json
                     );
-                    
+                    info!("Routing skipped as the message was processed in last 24 hours");
+                    message.finish().await;
+                    info!("Sending the processed message on NSQ {}", message_from_router_json);
                     let producer_topic =
                         NSQTopic::new(_message.t_o).expect("Failed to create producer topic");
+                    info!("Producer topic {:?}", producer_topic);
                     producer
                         .publish(&producer_topic, message_from_router_json.as_bytes().to_vec())
                         .await
                         .expect("Failed to publish NSQ message");
+                    info!("Published to NSQ topic {:?}", producer_topic);
                     producer
                         .consume()
                         .await
                         .expect("Failed to consume NSQ message");                    
-                    message.finish().await;
+                    info!("Consumed from NSQ topic {:?}", producer_topic);
                     continue;
                 } else {
                     // Clone the message so we have a reference in this routine
@@ -226,6 +230,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
                         ).await;
 
                         // Pass the original message to the router
+                        info!("Routing the message...");
+                        // Acknowledge the message from NSQ
+                        message.finish().await;                           
                         let router_result = router.process_message(_message).await;
                         match router_result {
                             Ok(processed_message) => {
@@ -240,8 +247,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
                             }
                         }
 
-                        // Save the message to mongodb cache
-                        message.finish().await;                           
+                        // Save the message to mongodb cache   
+                        info!("Saving the message to MongoDB");                     
                         router
                             .mongo
                             .update_one(original_message.clone(), &client)
@@ -260,12 +267,15 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     }       
 
                     // Send the message to NSQ
+                    info!("Sending the message on NSQ {}", message_body_str);
                     let producer_topic = NSQTopic::new(original_message.t_o.clone())
                         .expect("Failed to create producer topic");
+                    info!("Producer topic {:?}", producer_topic);
                     producer
                         .publish(&producer_topic, message_body_str.as_bytes().to_vec())
                         .await
                         .expect("Failed to publish NSQ message");
+                    info!("Published to NSQ topic {:?}", producer_topic);
                     producer
                         .consume()
                         .await
